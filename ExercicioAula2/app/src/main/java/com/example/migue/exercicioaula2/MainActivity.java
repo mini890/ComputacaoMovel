@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -28,6 +29,8 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
                 int resultado = Integer.parseInt(milhasIntroduzidas.getText().toString()) * 1852;
                 resultadoText.setText(resultado + " metros");
+                Toast toast = Toast.makeText(MainActivity.this, resultado + " metros", Toast.LENGTH_LONG);
+                toast.show();
             }
         });
 
@@ -36,6 +39,8 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
                 int resultado = Integer.parseInt(milhasIntroduzidas.getText().toString()) * 1609;
                 resultadoText.setText(resultado + " metros");
+                Toast toast = Toast.makeText(MainActivity.this, resultado + " metros", Toast.LENGTH_LONG);
+                toast.show();
             }
         });
     }
