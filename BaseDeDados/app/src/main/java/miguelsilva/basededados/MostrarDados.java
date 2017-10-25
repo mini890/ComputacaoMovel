@@ -1,0 +1,13 @@
+package miguelsilva.basededados;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+public class MostrarDados extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_mostrar_dados);
+    }
+}

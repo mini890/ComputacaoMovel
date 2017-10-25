@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">BaseDeDados</string>
+    <string name="nome_textview">Nome:</string>
+    <string name="morada_textview">Morada:</string>
+    <string name="telefone_textview">Telefone:</string>
+    <string name="botao_inserir">INSERIR</string>
+    <string name="botao_proximo">PRÓXIMO</string>
+</resources>
