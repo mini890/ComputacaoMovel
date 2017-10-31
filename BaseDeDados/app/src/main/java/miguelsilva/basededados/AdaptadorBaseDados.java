@@ -30,7 +30,7 @@ public class AdaptadorBaseDados {
     }
 
     private Cursor obterTodosRegistos() {
-        String[] colunas = new String[3];
+        String[] colunas = new String[4];
         colunas[0] = "nome";
         colunas[1] = "morada";
         colunas[2] = "telefone";
@@ -83,8 +83,8 @@ public class AdaptadorBaseDados {
         if (c.moveToFirst()) {
             do {
                 osIds.add(c.getInt(0));
-                osMoradas.add(c.getString(1));
-                osNomes.add(c.getString(2));
+                osNomes.add(c.getString(1));
+                osMoradas.add(c.getString(2));
                 osTelefones.add(c.getString(3));
             } while (c.moveToNext());
         }

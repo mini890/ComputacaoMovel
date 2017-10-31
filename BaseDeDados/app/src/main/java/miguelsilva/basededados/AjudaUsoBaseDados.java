@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 
 public class AjudaUsoBaseDados extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "base-dados.db";
+    private static final String DATABASE_NAME = "basedados.db";
     private static final int VERSION = 1;
 
     public AjudaUsoBaseDados(Context context) {
