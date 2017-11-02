@@ -18,10 +18,11 @@ public class MainActivity extends Activity {
     protected EditText nome, morada, telefone;
     protected Spinner escolher;
     protected Button ok;
-    protected List<String> moradas, telefones;
-    int index;
-    List<String> nomes;
-    Activity activity;
+    protected List<String> nomes, moradas, telefones;
+    protected List<Integer> ids;
+    protected int index;
+    protected Activity activity;
+    protected AdaptadorBaseDados baseDados;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +40,10 @@ public class MainActivity extends Activity {
         nomes = new ArrayList<String>();
         moradas = new ArrayList<String>();
         telefones = new ArrayList<String>();
+        ids = new ArrayList<Integer>();
         nomes.add("NOVO");
         moradas.add("NOVO");
-        telefones.add("NOVO");
+        telefones.add("112");
 
         ArrayAdapter<String> oAdaptador2 = new ArrayAdapter<String>(activity,
                 android.R.layout.simple_spinner_item, nomes);
@@ -66,6 +68,9 @@ public class MainActivity extends Activity {
     protected void onStart() {
         super.onStart();
 
+        baseDados = new AdaptadorBaseDados(this).open();
+        baseDados.obterTodosCampos(ids, nomes, moradas, telefones);
+
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,10 +78,12 @@ public class MainActivity extends Activity {
                     nomes.add(nome.getText().toString());
                     moradas.add(morada.getText().toString());
                     telefones.add(telefone.getText().toString());
+                    baseDados.insertNomeMoradaTelefone(nomes.get(nomes.size() - 1).toString(), moradas.get(moradas.size() - 1).toString(), telefones.get(telefones.size() - 1).toString());
                 } else {
                     nomes.set(index, nome.getText().toString());
                     moradas.set(index, morada.getText().toString());
                     telefones.set(index, telefone.getText().toString());
+                    baseDados.updateDados(index - 1, telefones.get(index - 1).toString(), moradas.get(index - 1).toString(), telefones.get(index - 1).toString());
                 }
 
                 ArrayAdapter<String> oAdaptador2 = new ArrayAdapter<String>(activity,

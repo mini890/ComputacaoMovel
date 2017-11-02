@@ -20,7 +20,7 @@ public class AjudaUsoBaseDados extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS Alunos");
-        onCreate(db);
+        //db.execSQL("DROP TABLE IF EXISTS Alunos");
+        //onCreate(db);
     }
 }

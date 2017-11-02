@@ -31,21 +31,12 @@ public class AdaptadorBaseDados {
 
     private Cursor obterTodosRegistos() {
         String[] colunas = new String[2];
-        colunas[0] = "numero";
-        colunas[1] = "nome";
-        return database.query("alunos", colunas, null, null, null, null, "nome");
-    }
-
-    public List<String> obterTodosNumeros() {
-        ArrayList<String> numeros = new ArrayList<String>();
-        Cursor cursor = obterTodosRegistos();
-        if (cursor.moveToFirst()) {
-            do {
-                numeros.add(cursor.getString(0));
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        return numeros;
+        colunas[0] = "nome";
+        colunas[1] = "morada";
+        colunas[2] = "telefone";
+        //Ordernado por nome
+        //return database.query("alunos", colunas, null, null, null, null, "nome");
+        return database.query("pessoas", colunas, null, null, null, null, null);
     }
 
     public List<String> obterTodosNomes() {
@@ -53,25 +44,51 @@ public class AdaptadorBaseDados {
         Cursor cursor = obterTodosRegistos();
         if (cursor.moveToFirst()) {
             do {
-                nomes.add(cursor.getString(1));
+                nomes.add(cursor.getString(0));
             } while (cursor.moveToNext());
         }
         cursor.close();
         return nomes;
     }
 
-    public int obterTodosCampos(List<Integer> osIds, List<String> osNumeros, List<String> osNomes) {
+    public List<String> obterTodasMoradas() {
+        ArrayList<String> moradas = new ArrayList<String>();
+        Cursor cursor = obterTodosRegistos();
+        if (cursor.moveToFirst()) {
+            do {
+                moradas.add(cursor.getString(1));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return moradas;
+    }
+
+    public List<String> obterTodosTelefones() {
+        ArrayList<String> telefones = new ArrayList<String>();
+        Cursor cursor = obterTodosRegistos();
+        if (cursor.moveToFirst()) {
+            do {
+                telefones.add(cursor.getString(2));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return telefones;
+    }
+
+    public int obterTodosCampos(List<Integer> osIds, List<String> osNomes, List<String> asMoradas, List<String> osTelefones) {
         String[] colunas = new String[23];
         colunas[0] = "_id";
-        colunas[1] = "numero";
-        colunas[2] = "nome";
-        Cursor c = database.query("alunos", colunas, null, null, null, null, null);
+        colunas[1] = "nome";
+        colunas[2] = "morada";
+        colunas[3] = "telefone";
+        Cursor c = database.query("pessoas", colunas, null, null, null, null, null);
 
         if (c.moveToFirst()) {
             do {
                 osIds.add(c.getInt(0));
-                osNumeros.add(c.getString(1));
-                osNomes.add(c.getString(2));
+                osNomes.add(c.getString(1));
+                asMoradas.add(c.getString(2));
+                osTelefones.add(c.getString(3));
             } while (c.moveToNext());
         }
         c.close();
@@ -80,37 +97,28 @@ public class AdaptadorBaseDados {
 
     public boolean existe(String umNome) {
         Cursor cursor = database.rawQuery(
-                "select nome from alunos where nome=?", new String[]{umNome});
+                "select nome from pessoas where nome=?", new String[]{umNome});
         boolean b = cursor.getCount() >= 1;
         cursor.close();
         return b;
     }
 
-    public long insertNumeroNome(String oNumero, String oNome) {
+    public long insertNomeMoradaTelefone(String nome, String morada, String telefone) {
         ContentValues values = new ContentValues();
-        values.put("numero", oNumero);
-        values.put("nome", oNome);
-        return database.insert("alunos", null, values);
+        values.put("nome", nome);
+        values.put("morada", morada);
+        values.put("telefone", telefone);
+        return database.insert("pessoas", null, values);
     }
 
-    public int deleteNome(String oNome) {
-        String whereClause = "nome = ?";
-        String[] whereArgs = new String[1];
-        whereArgs[0] = oNome;
-        return database.delete("alunos", whereClause, whereArgs);
-    }
-
-    public int deleteTodosNomes() {
-        return database.delete("alunos", null, null);
-    }
-
-    public int updateNome(Integer oId, String oNumero, String oNome) {
+    public int updateDados(Integer oId, String nome, String morada, String telefone) {
         String whereClause = "_id = ?";
         String[] whereArgs = new String[1];
         whereArgs[0] = new Integer(oId).toString();
         ContentValues values = new ContentValues();
-        values.put("nome", oNome);
-        values.put("numero", oNumero);
-        return database.update("alunos", values, whereClause, whereArgs);
+        values.put("nome", nome);
+        values.put("morada", morada);
+        values.put("telefone", telefone);
+        return database.update("pessoas", values, whereClause, whereArgs);
     }
 }
