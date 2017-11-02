@@ -83,7 +83,7 @@ public class MainActivity extends Activity {
                     nomes.set(index, nome.getText().toString());
                     moradas.set(index, morada.getText().toString());
                     telefones.set(index, telefone.getText().toString());
-                    baseDados.updateDados(index - 1, telefones.get(index - 1).toString(), moradas.get(index - 1).toString(), telefones.get(index - 1).toString());
+                    baseDados.updateDados(index, nomes.get(index).toString(), moradas.get(index).toString(), telefones.get(index).toString());
                 }
 
                 ArrayAdapter<String> oAdaptador2 = new ArrayAdapter<String>(activity,
@@ -92,5 +92,11 @@ public class MainActivity extends Activity {
                 escolher.setAdapter(oAdaptador2);
             }
         });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        baseDados.close();
     }
 }
