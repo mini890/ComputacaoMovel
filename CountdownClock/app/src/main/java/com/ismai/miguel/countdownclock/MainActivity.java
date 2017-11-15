@@ -3,6 +3,7 @@ package com.ismai.miguel.countdownclock;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -90,11 +91,12 @@ public class MainActivity extends Activity {
                     n = 1;
                 }
                 for (int k = 0; k < n; k++) {
-                    try {
+                    /*try {
                         TimeUnit.SECONDS.sleep(1);
                     } catch (InterruptedException e) {
                         return 404;
-                    }
+                    }*/
+                    SystemClock.sleep(1000);
                     current -= 1;
                     publishProgress(current);
                 }
@@ -110,12 +112,12 @@ public class MainActivity extends Activity {
 
         @Override
         protected void onPostExecute(Integer integer) {
-            if (integer == 404) {
+            /*if (integer == 404) {
                 Toast.makeText(activity, "Error: TimeUnit wasn't able to run", Toast.LENGTH_SHORT).show();
-            }
+            }*/
             button.setEnabled(true);
             seconds.setEnabled(true);
         }
     }
-
+	
 }
